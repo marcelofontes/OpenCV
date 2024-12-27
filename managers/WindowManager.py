@@ -36,4 +36,3 @@ class WindowManager(object):
             keycode &= 0xFF
             self.keypressCallback(keycode)
             
-        

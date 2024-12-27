@@ -19,6 +19,7 @@ class Cameo(object):
             self._captureManager.exitFrame()
             self._windowManager.processEvents()
     
+    
     def onKeypress(self, keycode):
         """handle a keypress
         space -> take a screeshot
