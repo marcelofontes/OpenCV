@@ -1,20 +1,28 @@
 import cv2
 from managers.CaptureManager import CaptureManager
 from managers.WindowManager import WindowManager
-
+from .Trackers import haar_trackers as trackers
 
 class Cameo(object):
     def __init__(self):
         self._windowManager = WindowManager('Cameo',self.onKeypress)
         self._captureManager = CaptureManager(cv2.VideoCapture(0), self._windowManager, True)
+        self._faceTracker = trackers.FaceTracker()
         
     
     def run(self):
         """run the main loop"""
         self._windowManager.createWindow()
+        
         while self._windowManager.isWindowCreated:
+            
             self._captureManager.enterFrame()
             frame = self._captureManager.frame
+            
+            self._faceTracker.update(frame)
+            faces =self._faceTracker.faces
+            self._faceTracker.drawDebugRects(frame)
+            self._faceTracker.getFacesCoord()
             
             self._captureManager.exitFrame()
             self._windowManager.processEvents()
@@ -22,9 +30,9 @@ class Cameo(object):
     
     def onKeypress(self, keycode):
         """handle a keypress
-        space -> take a screeshot
-        tab -> start/stop recording a screncast
-        escape -> quit
+            space -> take a screeshot
+            tab -> start/stop recording a screncast
+            escape -> quit
         """
         
         if keycode == 32: #space
