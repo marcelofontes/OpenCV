@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+venv
 env/
 venv/
 ENV/
@@ -146,5 +147,7 @@ run.sh
 migrations/
 /migrations
 
-
+Objects
+/Objects
+Objects/
 

@@ -1,13 +1,16 @@
 import cv2
 from managers.CaptureManager import CaptureManager
 from managers.WindowManager import WindowManager
-from .Trackers import haar_trackers as trackers
+from .Trackers.trackers import HaarFaceTracker
+from .Trackers.trackers import DlibHOGFaceTracker
 
 class Cameo(object):
-    def __init__(self):
+    def __init__(self, faceTracker):
         self._windowManager = WindowManager('Cameo',self.onKeypress)
         self._captureManager = CaptureManager(cv2.VideoCapture(0), self._windowManager, True)
-        self._faceTracker = trackers.FaceTracker()
+        # self._faceTracker = HaarFaceTracker()
+        self._faceTracker = faceTracker
+
         
     
     def run(self):
@@ -22,7 +25,8 @@ class Cameo(object):
             self._faceTracker.update(frame)
             faces =self._faceTracker.faces
             self._faceTracker.drawDebugRects(frame)
-            self._faceTracker.getFacesCoord()
+            # print(self._faceTracker.getFacesCoord())
+            
             
             self._captureManager.exitFrame()
             self._windowManager.processEvents()
