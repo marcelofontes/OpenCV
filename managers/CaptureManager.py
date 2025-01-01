@@ -100,7 +100,7 @@ class CaptureManager(object):
     def startWritingVideo(self, filename, 
                             encoding = cv2.VideoWriter.fourcc('I', '4', '2', '0')):
         """Start writing exited frames toa video file"""
-        self._videlFilename = filename
+        self._videoFilename = filename
         self._videoEncoding = encoding
     
     

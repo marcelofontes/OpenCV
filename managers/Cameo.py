@@ -4,11 +4,14 @@ from managers.WindowManager import WindowManager
 from .Trackers.trackers import HaarFaceTracker
 from .Trackers.trackers import DlibHOGFaceTracker
 
+
+cam1= cv2.VideoCapture(0) # camera embutida
+cam2 =cv2.VideoCapture(2) # camera USb em /dev/video2
+
 class Cameo(object):
     def __init__(self, faceTracker):
         self._windowManager = WindowManager('Cameo',self.onKeypress)
-        self._captureManager = CaptureManager(cv2.VideoCapture(0), self._windowManager, True)
-        # self._faceTracker = HaarFaceTracker()
+        self._captureManager = CaptureManager(cam1, self._windowManager, True)
         self._faceTracker = faceTracker
 
         
